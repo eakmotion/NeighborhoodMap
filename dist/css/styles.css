@@ -1,1 +1,1 @@
-#map{height:100%;width:100%;position:absolute;display:block}body,html{height:100%;margin:0;padding:0}
+body,html{height:100%}#map{min-height:400px;height:80vh;width:100%;position:absolute;display:block}.card.info-window{border:none;max-width:400px}

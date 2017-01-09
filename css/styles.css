@@ -1,11 +1,16 @@
-#map {
+html, body {
   height: 100%;
+}
+
+#map {
+  min-height: 400px;
+  height: 80vh;
   width: 100%;
   position: absolute;
   display: block;
 }
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+
+.card.info-window {
+  border: none;
+  max-width: 400px;
 }
