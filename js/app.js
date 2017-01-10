@@ -40,14 +40,14 @@ function getWikiInfo(place) {
 
   $.ajax({
     url: wikiAPI,
-    dataType: "jsonp",
-    success: function(response) {
+    dataType: "jsonp"
+	}).done(function(response) {
       var placeContent;
       var responseList = response[1];
       if (responseList.length > 0)
       {
         var url = response[3];
-        var description = response[2]
+        var description = response[2];
         placeContent = '<div class="card info-window">' +
         '<div class="card-block">' +
         '<h5 class="card-title">' + place.name + '</h5>' +
@@ -64,8 +64,9 @@ function getWikiInfo(place) {
       }
   		infoWindow.setContent(placeContent);
   		infoWindow.open(map, place.marker);
-    }
-  });
+  }).fail(function() {
+		alert("Failed to load Wikipedia");
+	});
 }
 
 // Initialize Google map.
@@ -140,10 +141,10 @@ function clickedMarker(name) {
 // Create ViewModel.
 var ViewModel = function() {
 	var self = this;
-	this.filter = ko.observable("");
+	self.filter = ko.observable("");
 
 	// Filter places based on search.
-	this.filteredPlaces = ko.computed(function() {
+	self.filteredPlaces = ko.computed(function() {
 		var filter = self.filter().toLowerCase();
 		if (!filter) {
 			places.forEach(function(place) {
@@ -155,13 +156,13 @@ var ViewModel = function() {
 		} else {
 			return ko.utils.arrayFilter(places, function(place) {
 		 		var searchValue = place.name.toLowerCase().indexOf(filter) !== -1;
-		 		if (searchValue) {
-		 			place.marker.setVisible(true);
-		 		} else {
-		 			place.marker.setVisible(false);
-		 		}
+				place.marker.setVisible(searchValue);
 		 		return searchValue;
 		 	});
 		}
 	});
 };
+
+function googleError() {
+	alert('Google Maps could not be loaded.')
+}
