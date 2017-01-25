@@ -1,6 +1,6 @@
 var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
-    minifyCSS = require('gulp-minify-css'),
+    cleanCSS = require('gulp-clean-css'),
     postcss = require('gulp-postcss'),
     autoprefixer = require('autoprefixer'),
     server = require('gulp-server-livereload');
@@ -13,7 +13,7 @@ gulp.task('scripts', function(){
 
 gulp.task('styles', function(){
   gulp.src('css/**/*.css')
-    .pipe(minifyCSS())
+    .pipe(cleanCSS())
     .pipe(postcss([ autoprefixer({ browsers: ['last 2 versions'] }) ]))
     .pipe(gulp.dest('dist/css/'));
 });
